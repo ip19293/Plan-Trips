@@ -33,7 +33,6 @@ const FitSegmentBounds = ({ segmentPoints }) => {
 
 const TripMap = ({ origin, pickup, dropoff, stops }) => {
   if (!origin || !pickup || !dropoff) return null;
-
   const routeCoords = [
     [origin.lat, origin.lon],
     [pickup.lat, pickup.lon],
@@ -45,14 +44,14 @@ const TripMap = ({ origin, pickup, dropoff, stops }) => {
     [origin.lat, origin.lon],
     [pickup.lat, pickup.lon],
     [dropoff.lat, dropoff.lon],
-    ...(stops ? stops.map((s) => [s.lat, s.lon]) : []),
+   ...(stops ? stops.map((s) => [s.location.lat, s.location.lon]) : []),
   ];
 
   return (
     <MapContainer
       center={[origin.lat, origin.lon]}
       zoom={12} // zoom initial, sera ajusté automatiquement
-      style={{ height: "500px", width: "100%" }}
+      style={{ height: "400px", width: "100%" }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -76,11 +75,11 @@ const TripMap = ({ origin, pickup, dropoff, stops }) => {
       {/* Stops */}
       {stops &&
         stops.map((stop, idx) => (
-          <Marker key={idx} position={[stop.lat, stop.lon]}>
-            <Popup>
-              Stop {idx + 1}: {stop.name} <br />
-              Duration: {stop.duration} min
-            </Popup>
+          <Marker key={idx} position={[stop.location.lat, stop.location.lon]}>
+            {/*<Popup>*/}
+            {/*  Stop {idx + 1}: {stop.name} <br />*/}
+            {/*  Duration: {stop.duration} min*/}
+            {/*</Popup>*/}
           </Marker>
         ))}
 
