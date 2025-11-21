@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import LocationPickerModal from "../dialog/LocationPickerModal";
+import LocationPickerModal from "./dialog/LocationPickerModal";
 import {getLocationName} from "../utils/reverseGeocode";
 
 

@@ -1,13 +1,15 @@
-import { PDFDocument, } from "pdf-lib";
+import { PDFDocument,StandardFonts,rgb } from "pdf-lib";
 import { saveAs } from "file-saver";
 
 async function generateFromTemplate(trip, driver, vehicle) {
   const existingPdfBytes = await fetch("/templates/duty-daily-form.pdf").then(res => res.arrayBuffer());
   const pdfDoc = await PDFDocument.load(existingPdfBytes);
-  // const page = pdfDoc.getPages()[0];
-  // const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+   const page = pdfDoc.getPages()[0];
+   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
-  // page.drawText(`Driver: ${driver.name}`, { x: 50, y: 720, size: 12, font, color: rgb(0,0,0) });
+   page.drawText(` ${new Date(trip.start_datetime).getMonth()}`, { x: 230, y: 708, size: 12, font, color: rgb(0,0,0) });
+      page.drawText(` ${new Date(trip.start_datetime).getDay()}`, { x: 280, y: 708, size: 12, font, color: rgb(0,0,0) });
+            page.drawText(` ${new Date(trip.start_datetime).getFullYear()}`, { x: 310, y: 708, size: 12, font, color: rgb(0,0,0) });
   // page.drawText(`Vehicle: ${vehicle.number}`, { x: 50, y: 700, size: 12, font, color: rgb(0,0,0) });
   // page.drawText(`Trip Start: ${vehicle.number}`, { x: 50, y: 680, size: 12, font, color: rgb(0,0,0) });
 
